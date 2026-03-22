@@ -1,0 +1,81 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: #0a0e1a;
+    color: #ffffff;
+    font-family: 'Century Gothic', sans-serif;
+    line-height: 1.4;
+}
+
+.container { max-width: 480px; margin: 0 auto; padding: 20px; }
+.hidden { display: none !important; }
+
+/* HEADER */
+.header-v2 { text-align: center; padding: 20px 0; }
+.logo-principal { width: 130px; border-radius: 50%; border: 3px solid #00f2ff; box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
+
+.titulo-v2 { text-align: center; font-size: 1.2em; color: #00f2ff; margin: 15px 0; letter-spacing: 1px; }
+
+/* GRID CATALOGO */
+.grid-juegos { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+.card-juego { 
+    background: #151c2c; border: 1px solid rgba(0, 242, 255, 0.2); 
+    padding: 10px; border-radius: 15px; text-align: center; cursor: pointer;
+}
+.card-juego img { width: 100%; border-radius: 10px; margin-bottom: 5px; }
+
+/* FORMULARIO */
+.card-v2 { background: #151c2c; border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 20px; padding: 25px; position: relative; }
+.btn-cerrar-v2 { position: absolute; right: 15px; top: 15px; background: none; border: none; color: white; font-size: 28px; cursor: pointer; }
+
+.seccion-paso { position: relative; padding-left: 45px; margin-bottom: 25px; }
+.paso-numero { 
+    position: absolute; left: 0; top: 0; width: 32px; height: 32px; 
+    background: #00f2ff; color: #000; border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center; font-weight: bold;
+}
+
+.label-paso { font-size: 0.9em; font-weight: bold; display: block; margin-bottom: 5px; }
+
+input, select { 
+    width: 100%; background: #000; border: 1px solid #334155; 
+    color: white; padding: 12px; border-radius: 10px; 
+    margin-top: 8px; font-family: inherit; font-size: 0.9em;
+}
+
+.id-group-v2 { display: flex; gap: 10px; }
+
+/* PAQUETES */
+.grid-paquetes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.pack-box { 
+    background: #000; border: 1px solid rgba(0,242,255,0.2); 
+    padding: 12px; border-radius: 10px; text-align: center; cursor: pointer;
+}
+.pack-box.selected { border-color: #00f2ff; background: rgba(0, 242, 255, 0.1); }
+
+/* PAGO */
+.pago-selector { display: flex; gap: 10px; margin-top: 10px; }
+.btn-pago { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #000; color: white; cursor: pointer; }
+.btn-pago.selected { background: #00f2ff; color: #000; border-color: #00f2ff; font-weight: bold; }
+
+/* BOTONES */
+.btn-v2 { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-family: inherit; }
+.btn-accion { background: #00f2ff; color: #000; margin-top: 15px; }
+.btn-whatsapp { 
+    background: #05976a; color: white; display: flex; align-items: center; 
+    justify-content: center; gap: 10px; max-width: 280px; margin: 20px auto 0;
+}
+.wa-icon { width: 20px; fill: white; }
+
+/* TICKET */
+.detalle-box-v2 { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(255,255,255,0.05); }
+.pago-row { display: flex; justify-content: space-between; align-items: center; background: #000; padding: 10px 15px; border-radius: 8px; margin-top: 10px; }
+.btn-copiar-mini { background: #00f2ff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; }
+
+/* MODAL */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.hourglass { font-size: 50px; display: inline-block; animation: spin 2s infinite; margin-bottom: 15px; }
+@keyframes spin { 0% { transform: rotate(0); } 50% { transform: rotate(180deg); } 100% { transform: rotate(180deg); } }
+
+.footer-v2 { display: flex; justify-content: space-around; margin-top: 40px; font-size: 11px; }
+.footer-v2 a { color: #94a3b8; text-decoration: none; }

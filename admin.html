@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Control | Elite Shop</title>
+    <style>
+        body {
+            background: #0a0e1a;
+            color: #ffffff;
+            font-family: 'Century Gothic', sans-serif;
+            padding: 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #00f2ff;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            color: #00f2ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.5rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #151c2c;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            text-align: center;
+        }
+
+        .stat-card span {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .stat-card b {
+            font-size: 1.4rem;
+            color: #00f2ff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #151c2c;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        th {
+            background: #1e293b;
+            color: #00f2ff;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        tr:hover {
+            background: rgba(0, 242, 255, 0.05);
+        }
+
+        .btn-completar {
+            background: #05976a;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-completar:hover {
+            background: #047857;
+            transform: scale(1.05);
+        }
+
+        .estado-pendiente {
+            color: #facc15;
+            background: rgba(250, 204, 21, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .estado-completado {
+            color: #00f2ff;
+            opacity: 0.5;
+            font-size: 0.8rem;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-header">
+        <h1>Centro de Mando</h1>
+        <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <span>Pedidos Totales</span>
+            <b id="total-pedidos">0</b>
+        </div>
+        <div class="stat-card">
+            <span>Ventas del Día</span>
+            <b id="ventas-dinero">0 Bs</b>
+        </div>
+    </div>
+
+    <h1>📦 Pedidos Entrantes</h1>
+    <div id="contenedor-tabla">
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Juego</th>
+                    <th>ID / Extra</th>
+                    <th>Paquete</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="lista-pedidos">
+            </tbody>
+        </table>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // --- 1. CONFIGURACIÓN (Asegúrate de que tus datos reales estén aquí) ---
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "eliteshop-recargas.firebaseapp.com",
+            databaseURL: "https://eliteshop-recargas-default-rtdb.firebaseio.com/",
+            projectId: "eliteshop-recargas",
+            storageBucket: "eliteshop-recargas.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // --- 2. SEGURIDAD ---
+        const PASS_CORRECTA = "Elite2026";
+        if (localStorage.getItem("admin_auth") !== "true") {
+            let intento = prompt("Clave de Administrador:");
+            if (intento === PASS_CORRECTA) {
+                localStorage.setItem("admin_auth", "true");
+            } else {
+                alert("Acceso denegado");
+                window.location.href = "index.html";
+            }
+        }
+
+        // --- 3. LECTURA DE DATOS EN TIEMPO REAL ---
+        const pedidosRef = ref(db, 'pedidos');
+
+        onValue(pedidosRef, (snapshot) => {
+            const data = snapshot.val();
+            const tabla = document.getElementById('lista-pedidos');
+            const countLabel = document.getElementById('total-pedidos');
+            const moneyLabel = document.getElementById('ventas-dinero');
+
+            let totalDinero = 0;
+            let contador = 0;
+            let htmlFilas = ""; // Acumulador de filas para evitar errores
+
+            if (!data) {
+                tabla.innerHTML = "<tr><td colspan='6' style='text-align:center'>No hay pedidos aún</td></tr>";
+                countLabel.innerText = "0";
+                moneyLabel.innerText = "0 Bs";
+                return;
+            }
+
+            // Convertir objeto a Array y ordenar por fecha (el más nuevo arriba)
+            const listaOrdenada = Object.entries(data).reverse();
+
+            listaOrdenada.forEach(([id, pedido]) => {
+                contador++;
+
+                // Sumar dinero (limpiando el texto " Bs")
+                if (pedido.precio) {
+                    let monto = parseInt(pedido.precio.toString().replace(/[^0-9]/g, '')) || 0;
+                    totalDinero += monto;
+                }
+
+                // Crear la fila HTML
+                htmlFilas += `
+                <tr>
+                    <td>${pedido.fecha ? new Date(pedido.fecha).toLocaleString() : '---'}</td>
+                    <td><b style="color:#00f2ff">${pedido.juego || '---'}</b></td>
+                    <td>
+                        <div style="font-size:0.9em">${pedido.id_jugador || '---'}</div>
+                        <div style="font-size:0.7em; opacity:0.6">${pedido.extra || ''}</div>
+                        <div style="font-size:0.7em; color:#05976a">${pedido.nickname || ''}</div>
+                    </td>
+                    <td>${pedido.paquete || '---'}</td>
+                    <td><span class="estado-${pedido.estado ? pedido.estado.toLowerCase() : 'pendiente'}">${pedido.estado || 'Pendiente'}</span></td>
+                    <td>
+                        ${pedido.estado === 'Pendiente' ?
+                        `<button class="btn-completar" onclick="marcarCompletado('${id}')">LISTO</button>` :
+                        '✅'}
+                    </td>
+                </tr>
+            `;
+            });
+
+            // Actualizar la interfaz de una sola vez
+            tabla.innerHTML = htmlFilas;
+            countLabel.innerText = contador;
+            moneyLabel.innerText = totalDinero + " Bs";
+        });
+
+        // --- 4. FUNCIONES GLOBALES ---
+        window.marcarCompletado = function (pedidoId) {
+            const itemRef = ref(db, 'pedidos/' + pedidoId);
+            update(itemRef, { estado: 'Completado' })
+                .then(() => console.log("Estado actualizado"))
+                .catch((err) => alert("Error: " + err));
+        };
+
+        window.logout = function () {
+            localStorage.removeItem("admin_auth"); // Borra solo la llave de admin
+            window.location.href = "index.html";   // Te expulsa al catálogo
+        };
+    </script>
+</body>
+
+</html>

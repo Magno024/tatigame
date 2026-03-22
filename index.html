@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Shop | Recargas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="vista-catalogo" class="container">
+        <div class="header-v2">
+            <img src="img/logo-tienda.png" class="logo-principal" alt="Elite Shop">
+        </div>
+
+        <h2 class="titulo-v2">CATÁLOGO DE JUEGOS</h2>
+
+        <div id="grid-juegos" class="grid-juegos"></div>
+
+        <footer class="footer-v2">
+            <a href="#" onclick="abrirTerminos()">Términos y Condiciones</a>
+            <a href="https://facebook.com/tu-grupo" target="_blank">Facebook</a>
+            <a href="#" onclick="ayudaWA()">Ayuda</a>
+        </footer>
+    </div>
+
+    <div id="vista-formulario" class="container hidden">
+        <div class="card-v2">
+            <button class="btn-cerrar-v2" onclick="irCatalogo()">×</button>
+            <h2 class="titulo-v2">SOLICITUD DE RECARGA</h2>
+
+            <div id="logo-juego-contenedor"></div>
+
+            <div class="seccion-paso">
+                <div class="paso-numero">1</div>
+                <label class="label-paso">ID Jugador:</label>
+                <div class="id-group-v2">
+                    <input type="text" id="id-jugador" placeholder="Ingresa tu ID">
+                    <input type="text" id="zona-jugador" placeholder="Zona" class="hidden">
+                </div>
+                <select id="region-jugador" class="hidden">
+                    <option value="">Seleccionar Región</option>
+                    <option value="América">América</option>
+                    <option value="Europa">Europa</option>
+                    <option value="Asia">Asia</option>
+                </select>
+                <input type="text" id="nick-jugador" placeholder="Nickname (Opcional)">
+            </div>
+
+            <div class="seccion-paso">
+                <div class="paso-numero">2</div>
+                <label class="label-paso">Paquetes:</label>
+                <div id="grid-paquetes" class="grid-paquetes"></div>
+            </div>
+
+            <div class="seccion-paso">
+                <div class="paso-numero">3</div>
+                <label class="label-paso">Método de pago:</label>
+                <div class="pago-selector">
+                    <button id="btn-qr" class="btn-pago" onclick="seleccionarMetodo('QR Simple')">QR</button>
+                    <button id="btn-tigo" class="btn-pago" onclick="seleccionarMetodo('Tigo Money')">Tigo Money</button>
+                </div>
+            </div>
+
+            <button class="btn-v2 btn-accion" onclick="procesarSolicitud()">SOLICITAR RECARGA</button>
+        </div>
+    </div>
+
+    <div id="vista-ticket" class="container hidden">
+        <div class="card-v2">
+            <button class="btn-cerrar-v2" onclick="atrasForm()">×</button>
+            <h2 class="titulo-v2">TICKET DE RECARGA</h2>
+            <div id="resumen-ticket" class="detalle-box-v2"></div>
+
+            <div id="info-pago-ticket"></div>
+
+            <button class="btn-v2 btn-whatsapp" onclick="enviarWA()">
+                <svg class="wa-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+                <span>ENVIAR TICKET</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-final" class="modal-overlay hidden">
+        <div class="card-v2" style="text-align:center">
+            <span class="hourglass">⏳</span>
+            <h2 class="titulo-v2">SOLICITUD INICIADA</h2>
+            <p style="margin-bottom:20px; font-size: 0.9em;">Tu ticket está listo para ser enviado por WhatsApp.</p>
+            <button class="btn-v2 btn-accion" onclick="irCatalogo()">NUEVA RECARGA</button>
+            <button class="btn-v2" style="background:transparent; color:#94a3b8"
+                onclick="irCatalogo()">FINALIZAR</button>
+        </div>
+    </div>
+
+    <div id="modal-terminos" class="modal-overlay hidden">
+        <div class="card-v2">
+            <button class="btn-cerrar-v2" onclick="cerrarTerminos()">×</button>
+            <h2 class="titulo-v2">TÉRMINOS Y CONDICIONES</h2>
+            <div style="max-height: 300px; overflow-y: auto; font-size: 0.8em; padding-right: 10px;">
+                <p>1. No hay devoluciones por errores en el ID...</p>
+                <p>2. Las recargas tardan de 5 a 15 minutos...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Importar las funciones necesarias
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // AQUÍ PEGA TU CONFIGURACIÓN (La que copiaste en el Paso 1)
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "tu-proyecto.firebaseapp.com",
+            databaseURL: "https://eliteshop-recargas-default-rtdb.firebaseio.com/",
+            projectId: "tu-proyecto",
+            storageBucket: "tu-proyecto.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Hacer que la función de guardar sea accesible desde tu script.js
+        window.guardarPedidoFB = function (datos) {
+            const pedidosRef = ref(database, 'pedidos');
+            const nuevoPedidoRef = push(pedidosRef);
+            return set(nuevoPedidoRef, {
+                ...datos,
+                fecha: new Date().toISOString(),
+                estado: "Pendiente"
+            });
+        };;
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
