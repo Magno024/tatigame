@@ -71,6 +71,7 @@ body {
     font-size: 1.2rem;
     letter-spacing: 2px;
     margin-bottom: 8px;
+    text-align: center;
 }
 
 .linea-decorativa {
@@ -100,6 +101,7 @@ body {
     text-align: center;
     cursor: pointer;
     transition: 0.3s;
+
 }
 
 .juego-card:hover,
@@ -132,7 +134,7 @@ body {
     border-radius: 20px;
     padding: 25px;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     /* Tamaño perfecto de celular en PC */
     position: relative;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
@@ -153,7 +155,7 @@ body {
 
 .seccion-paso {
     position: relative;
-    padding-left: 45px;
+    padding-left: 35px;
     margin-bottom: 25px;
 }
 
@@ -161,8 +163,8 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     background: #00f2ff;
     color: #000;
     border-radius: 50%;
@@ -175,13 +177,13 @@ body {
 /* 5. Grilla de paquetes dentro del formulario */
 .grid-paquetes {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* 2 columnas para los precios */
+     /* 3 columnas para los precios */
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     margin-top: 10px;
 }
 
-/*fondo reciadro de precios*/
+/*fondo recuadro de precios*/
 .pack-box {
     background: #0a0e1a;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -225,7 +227,7 @@ body {
 }
 
 /* --- FILAS DE INFORMACIÓN EN EL TICKET --- */
-/*
+/*pago-row esta en el script*/
 .pago-row {
     display: flex;
     justify-content: space-between;
@@ -236,7 +238,7 @@ body {
     margin-top: 10px;
     border: 1px solid rgba(0, 242, 255, 0.1);
 }
-*/
+
 
 /* 6. Inputs y Selects */
 input,
@@ -312,7 +314,7 @@ select {
     }
 }
 
-/*fordo de datos del ticket*/
+/*fondo de datos del ticket*/
 .detalle-box-v2 {
     background: rgba(0, 0, 0, 0.3);
     padding: 15px;
