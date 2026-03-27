@@ -377,7 +377,7 @@ select {
     position: fixed;
     width: 50px;
     height: 50px;
-    bottom: 80px; /*distancia de la base hacia arriba*/
+    bottom: 50px; /*distancia de la base hacia arriba*/
     right: 30px; /*distancia de la derecha hacia la izquierda*/
     background-color: #25d366;
     color: #FFF;
