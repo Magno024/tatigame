@@ -10,7 +10,47 @@
 
 <body>
 
+    <!-- Menú lateral que se despliega -->
+    <div id="side-menu" class="side-menu">
+        <div class="menu-content">
+            <h2>Nova Gane Store</h2>
+            <br>
+            <hr>
+            <!-- Opción de WhatsApp -->
+            <a href="https://wa.me/59178914558" target="_blank"
+                style="display: flex; align-items: center; text-decoration: none; color: rgb(250, 248, 248);">
+                <img src="img/wa.png" alt="WhatsApp" width="25" height="25" style="margin-right: 8px;">
+                Chatea con nosotros
+            </a>
+            <!-- Opción de Términos y Condiciones -->
+            <a href="https://facebook.com/groups/664921335647676" target="_blank"
+                style="display: flex; align-items: center; text-decoration: none; color: rgb(250, 248, 248);">
+                <img src="img/fc.png" alt="Facebook" width="25" height="25" style="margin-right: 8px;">
+                Visitanos
+            </a>
+            <!-- Opción de Términos y Condiciones -->
+            <a href="terminos.html" target="_blank"
+                style="display: flex; align-items: center; text-decoration: none; color: rgb(250, 248, 248);">
+                <img src="img/tyc.png" alt="Terminos" width="25" height="25" style="margin-right: 8px;">
+                Terminos y Condiciones
+            </a>
+        </div>
+    </div>
+
+    <!-- Fondo oscuro cuando el menú está abierto (opcional) -->
+    <div id="overlay" onclick="toggleMenu()"></div>
+
+
+    <!--xxxxxxxxx Vista Principal pagina principal xxxxxxxxxx-->
     <div id="vista-catalogo" class="wrapper">
+
+        <!-- Botón de 3 líneas (Hamburguesa) -->
+        <div class="menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!-- banner -->
         <header class="main-banner">
             <img src="img/banner.jpeg" alt="Elite Shop Banner" class="banner-img">
         </header>
@@ -29,6 +69,7 @@
             <a href="https://wa.me/59178914558" target="_blank">WhatsApp</a>
         </footer>
     </div>
+    <!--xxxxxxxxxxxxxxxxxxxx-->
 
     <div id="vista-formulario" class="modal-overlay hidden">
         <div class="card-v2">
@@ -69,6 +110,7 @@
             <button class="btn-v2 btn-accion" onclick="procesarSolicitud()">SOLICITAR RECARGA</button>
         </div>
     </div>
+    <!--xxxxxxxxxxxxxxxxxxxx-->
 
     <div id="vista-ticket" class="modal-overlay hidden">
         <div class="card-v2">
@@ -91,7 +133,7 @@
 
                 <div id="contenedor-preview" style="margin-top: 15px; display: none;">
                     <img id="img-preview" src="" alt="Vista previa"
-                        style="max-width: 100%; max-height: 150px; border-radius: 5px; border: 2px solid #00f2ff;">
+                        style="max-width: 100%; max-height: 250px; border-radius: 5px; border: 2px dashed #ccc">
                     <p style="color: #00f2ff; font-size: 0.7rem; margin-top: 5px;">✨ Imagen lista para enviar</p>
                 </div>
 
@@ -110,9 +152,9 @@
             </button>
         </div>
     </div>
+    <!--xxxxxxxxxxxxxxxxxxxx-->
 
-
-<!--
+    <!--
     <div id="modal-final" class="hidden">
     <div class="card-v2">
         <h2 style="color: #00f2ff;">¡Solicitud en Proceso!</h2>
@@ -154,6 +196,12 @@
             </div>
         </div>
     </div>
+
+
+    <a href="https://wa.me/59178914558" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp">
+    </a>
+
 
 
     <script type="module">

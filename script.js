@@ -43,6 +43,9 @@ function abrirFormulario(id) {
             <div style="color:#00f2ff; font-weight:bold">${p.p}</div>
         </div>
     `).join('');
+
+    // ESTO HABILITA EL BOTÓN ATRÁS:
+    history.pushState({ paso: "formulario" }, "Formulario", "#formulario");
 }
 
 function seleccionarPaquete(idx) {
@@ -105,6 +108,8 @@ function mostrarInfoPago() {
                 <button class="btn-copiar-mini" onclick="window.open('${DATOS_PAGO.qr}')">DESCARGAR QR</button>
             </div>`;
     }
+    // OTRO PASO EN EL HISTORIAL:
+    history.pushState({ paso: "ticket" }, "Ticket", "#ticket");
 }
 
 // 1. Función para mostrar la imagen apenas se selecciona
@@ -247,3 +252,63 @@ function cerrarTicket() {
     if (preview) preview.style.display = 'none';
     document.getElementById("input-comprobante").value = "";
 }
+
+
+//BOTON FLOTANTE WHATSAPP
+window.addEventListener('scroll', function() {
+    var scrollPosition = window.scrollY;
+    var whatsappBtn = document.querySelector('.whatsapp-float');
+    
+    // El botón aparece después de bajar 300px
+    if (scrollPosition > 300) {
+        whatsappBtn.style.display = 'flex';
+    } else {
+        whatsappBtn.style.display = 'none';
+    }
+});
+
+//boton con 3 lineas
+function toggleMenu() {
+    // Activa o desactiva la clase 'active' en el menú y el fondo
+    document.getElementById("side-menu").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+}
+
+
+
+// 1. Detectar cuando el usuario presiona el botón "Atrás" del celular
+window.onpopstate = function(event) {
+    // Si el usuario da atrás, forzamos a que vuelva al catálogo
+    // sin cerrar la página completa
+    cerrarTodoYVolverAlCatalogo();
+};
+
+function cerrarTodoYVolverAlCatalogo() {
+    // Ocultamos todas las capas posibles
+    const secciones = ["vista-formulario", "vista-ticket", "modal-final"];
+    
+    secciones.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden");
+    });
+
+    // Mostramos el catálogo principal
+    const catalogo = document.getElementById("vista-catalogo");
+    if (catalogo) catalogo.classList.remove("hidden");
+}
+
+
+window.onpopstate = function(event) {
+    const formulario = document.getElementById("vista-formulario");
+    const ticket = document.getElementById("vista-ticket");
+
+    if (!ticket.classList.contains("hidden")) {
+        // Si está en el ticket, volver al formulario
+        ticket.classList.add("hidden");
+        formulario.classList.remove("hidden");
+    } else if (!formulario.classList.contains("hidden")) {
+        // Si está en el formulario, volver al catálogo
+        formulario.classList.add("hidden");
+        document.getElementById("vista-catalogo").classList.remove("hidden");
+    }
+};
