@@ -385,7 +385,7 @@ select {
     text-align: center;
     font-size: 30px;
     box-shadow: 2px 2px 3px #999;
-    z-index: 1000;
+    z-index: 1001;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -412,7 +412,7 @@ select {
     width: 43px;
     height: 43px;
     padding: 13px;
-    z-index: 1001;
+    z-index: 999;
     position: relative;
     margin-top: 15px;
     border-radius: 10px;
