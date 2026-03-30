@@ -435,3 +435,46 @@ window.onpopstate = function (event) {
         document.getElementById("vista-catalogo").classList.remove("hidden");
     }
 };
+
+
+
+
+
+
+// --- LÓGICA DEL CARRUSEL ---
+let slideActual = 0;
+const slides = document.querySelectorAll('.carrusel-slide');
+const track = document.getElementById('carrusel-track');
+const puntos = document.querySelectorAll('.punto');
+const totalSlides = slides.length;
+
+// Función para cambiar de slide
+function cambiarSlide(indice) {
+    if (indice >= totalSlides) slideActual = 0;
+    else if (indice < 0) slideActual = totalSlides - 1;
+    else slideActual = indice;
+
+    // Movemos la "pista" (track)
+    // Multiplicamos por -(100 / totalSlides) para mover el porcentaje correcto
+    const desplazamiento = slideActual * -(100 / totalSlides);
+    track.style.transform = `translateX(${desplazamiento}%)`;
+
+    // Actualizamos los puntitos indicadores
+    puntos.forEach(p => p.classList.remove('activo'));
+    puntos[slideActual].classList.add('activo');
+}
+
+// Movimiento automático cada 5 segundos
+let autoPlay = setInterval(() => {
+    cambiarSlide(slideActual + 1);
+}, 5000);
+
+// Permitir cambiar slide al tocar los puntitos
+puntos.forEach((punto, i) => {
+    punto.addEventListener('click', () => {
+        clearInterval(autoPlay); // Paramos el auto-play si el usuario interactúa
+        cambiarSlide(i);
+        // Reiniciamos el auto-play después de 10 segundos de inactividad
+        autoPlay = setInterval(() => cambiarSlide(slideActual + 1), 5000);
+    });
+});

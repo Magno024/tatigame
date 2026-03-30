@@ -53,7 +53,41 @@
         </div>
         <!-- banner -->
         <header class="main-banner">
-            <img src="img/banner.jpeg" alt="Elite Shop Banner" class="banner-img">
+            <div class="carrusel-contenedor">
+    <div class="carrusel-track" id="carrusel-track">
+        
+        <div class="carrusel-slide glass-card" style="background-image: url('https://wallpapers.com/images/hd/free-fire-banner-graphic-promo-6uue7ur5nyqwx9me.jpg');">
+            <div class="carrusel-info">
+                <h2>ENTREGA EN <span class="resaltado-neon">5 MIN</span></h2>
+                <p>Verificado por miles de clientes</p>
+                <button class="btn-oferta" onclick="window.open('https://wa.me/59178914558', '_blank')">Saber Más</button>
+            </div>
+        </div>
+
+        <div class="carrusel-slide glass-card" style="background-image: url('https://i.pinimg.com/736x/b7/94/b5/b794b5c3d23fb673ef052eaf282e3bfa.jpg');">
+            <div class="carrusel-info">
+                <h2>BONO <span class="resaltado-neon">+10%</span></h2>
+                <p>En todos los paquetes de Free Fire</p>
+                <button class="btn-oferta" onclick="abrirFormulario('ff')">Recargar FF</button>
+            </div>
+        </div>
+
+        <div class="carrusel-slide glass-card" style="background-image: url('https://wallpapercave.com/wp/wp6884394.jpg');">
+            <div class="carrusel-info">
+                <h2>DIAMANTES <span class="resaltado-neon">SUPER BARATOS</span></h2>
+                <p>Aprovecha la oferta de la semana</p>
+                <button class="btn-oferta" onclick="abrirFormulario('ml')">Recargar MLBB</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="carrusel-indicadores" id="carrusel-indicadores">
+        <span class="punto activo"></span>
+        <span class="punto"></span>
+        <span class="punto"></span>
+    </div>
+</div>
         </header>
 
         <div class="titulo-seccion">
@@ -169,7 +203,8 @@
         <div class="card-v2" style="text-align:center">
             <div class="hourglass">⏳</div>
             <h2 class="titulo-v2">RECARGA EN PROCESO</h2>
-            <p style="margin-bottom:20px; font-size: 0.9em; color: #94a3b8;">Su recarga ya esta siendo procesada, si no enviate tus datos
+            <p style="margin-bottom:20px; font-size: 0.9em; color: #94a3b8;">Su recarga ya esta siendo procesada, si no
+                enviate tus datos
                 y el comprobante de deposito tu recarga no será procesada..</p>
             <button class="btn-v2 btn-accion" onclick="nuevaRecarga()">NUEVA RECARGA</button>
             <button class="btn-v2 btn-finalizar" onclick="finalizarTodo()">FINALIZAR</button>
