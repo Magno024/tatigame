@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.innerHTML = JUEGOS.map(j => `
         <div class="card-juego" onclick="abrirFormulario('${j.id}')">
             <img src="${j.img}" onerror="this.src='https://via.placeholder.com/150?text=LOGO'">
-            <div style="font-size: 12px; font-weight: lighter; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${j.nombre}</div>
+            <div style="font-size: 12px; font-weight: bold; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${j.nombre}</div>
         </div>
     `).join('');
 });
