@@ -1351,7 +1351,7 @@ footer {
 /* Estilo para cada paso individual */
 .pasos > div {
     background-color:#0a0f1d;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     border: 0px solid #eee;
     text-align: center;
