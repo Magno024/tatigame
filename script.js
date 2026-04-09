@@ -338,7 +338,7 @@ async function finalizarRecarga() {
     if (!fileInput.files[0]) {
             mostrarNotificacion("⚠️ Selecciona la foto de tu comprobante antes de enviar.");
         //alert("⚠️ Por favor, selecciona la foto de tu comprobante antes de enviar.");
-        return;
+        //return;
     }
 
     status.innerText = "⏳ Subiendo comprobante y registrando...";
