@@ -294,7 +294,7 @@ function descargarQR() {
     link.click();
     document.body.removeChild(link);
 
-    mostrarNotificacion("¡QR descargado con éxito!");
+    mostrarNotificacion("¡Descarga Completa!");
 }
 
 // Función para mostrar el mensaje temporal
@@ -560,6 +560,8 @@ function nuevaRecarga() {
 function finalizarTodo() {
     // Simplemente recarga la página para limpiar toda la memoria de la App
     location.reload();
+
+    window.scrollTo(0, 0);
 }
 
 
@@ -574,7 +576,7 @@ function cerrarFormulario() {
     // 3. Resetear el scroll al inicio
     window.scrollTo(0, 0);
 
-    limpiarFondo();
+    //limpiarFondo();
 }
 
 // Función para la X del Ticket
@@ -719,7 +721,7 @@ async function cargarHistorial() {
     if (!lista) return;
 
     if (historial.length === 0) {
-        lista.innerHTML = "<p style='text-align:center; opacity:0.5; padding:20px; color:white;'>No tienes pedidos aún.</p>";
+        lista.innerHTML = "<p style='text-align:center; opacity:0.5; padding:20px; color:white;'>Aún no tienes pedidos.</p>";
         return;
     }
 
@@ -875,16 +877,16 @@ async function enviarNotificacionTelegram(datos) {
     const mensaje = `
 <b>🚀 NUEVA RECARGA ELITE</b>
 ━━━━━━━━━━━━━━━━━━
+🆔 <b>Recarga:</b> <code>${datos.idPedido}</code>
 🎮 <b>Juego:</b> ${limpiar(datos.juego)}
 🆔 <b>ID:</b> <code>${limpiar(datos.id_jugador)}</code>
+📍 <b>Extra:</b> ${limpiar(datos.id_zona || datos.region || 'N/A')}
 👤 <b>Nick:</b> ${limpiar(datos.nickname || 'N/A')}
 💎 <b>Pack:</b> ${datos.paquete}
 💰 <b>Monto:</b> ${datos.precio}
 💳 <b>Pago:</b> ${datos.metodo}
-📍 <b>Extra:</b> ${limpiar(datos.id_zona || datos.region || 'N/A')}
-🆔 <b>Pedido:</b> <code>${datos.idPedido}</code>
 ━━━━━━━━━━━━━━━━━━
-<a href="${datos.comprobante}">📸 CLIC PARA VER COMPROBANTE</a>
+<a href="${datos.comprobante}">📸 CLICK PARA VER COMPROBANTE</a>
     `;
 
     const url = `https://api.telegram.org/bot${token}/sendMessage`;

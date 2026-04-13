@@ -41,6 +41,14 @@ body {
     flex-direction: column;
     min-height: 100vh;
     /* 100% de la altura de la ventana */
+
+
+
+    background-image: url('img/fondo.png'); /* Ruta de tu imagen */
+    background-size: cover;          /* Estira la imagen para cubrir todo el fondo */
+    background-position: center;     /* Centra la imagen */
+    background-attachment: fixed;    /* El fondo se queda quieto al hacer scroll */
+    background-repeat: no-repeat;    /* Evita que la imagen se repita en mosaico */
 }
 
 /* Capa oscura opcional para que el texto resalte más sobre la imagen */
@@ -345,7 +353,8 @@ body::before {
 
 /*fondo recuadro de precios*/
 .pack-box {
-    transition: all 0.3s ease; /* Esto hará que el brillo aparezca suavemente */
+    transition: all 0.3s ease;
+    /* Esto hará que el brillo aparezca suavemente */
     background: #0a0e1a;
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 10px;
@@ -556,14 +565,13 @@ select {
     width: 100%;
     height: 100%;
 
-    /* 1. Bajamos la opacidad del fondo (de 0.95 a 0.4) para ver la imagen de atrás */
-    background: rgba(10, 14, 26, 0.4);
+    /* 1. Bajamos la opacidad del fondo (de 0.95 a 0.4) para ver la imagen de atrás 
+    background: rgba(10, 14, 26, 0.4);*/
 
-    /* 2. ACTIVAMOS EL CRISTAL: Todo lo que esté detrás se verá borroso */
+    /* 2. ACTIVAMOS EL CRISTAL: Todo lo que esté detrás se verá borroso 
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);*/
 
-    display: flex;
     align-items: center;
     justify-content: center;
     z-index: 999;
@@ -594,11 +602,11 @@ select {
 /*BOTON WHATSAPP FLOTANTE */
 .whatsapp-float {
     position: fixed;
-    width: 50px;
-    height: 50px;
-    bottom: 30px;
+    width: 55px;
+    height: 55px;
+    bottom: 25px;
     /*distancia de la base hacia arriba*/
-    right: 40px;
+    right: 80px;
     /*distancia de la derecha hacia la izquierda*/
     background-color: #25d366;
     color: #FFF;
@@ -628,21 +636,22 @@ select {
 
 /* Estilo del botón de 3 líneas */
 .menu-btn-new {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 24px;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 4px;
-    width: 43px;
-    height: 43px;
-    padding: 13px;
-    z-index: 999;
-    position: relative;
-    margin-top: 1px;
-    border-radius: 10px;
-    background-color: #242e49;
-    /* color marco del  boton menu */
-    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    transition: transform 0.2s;
+}
+
+.menu-btn-new :hover {
+    transform: scale(1.1);
+    color: #f3ae1a;
 }
 
 .menu-btn-new span {
@@ -681,21 +690,23 @@ select {
 .side-menu {
     position: fixed;
     top: 0;
-    left: -320px;
+    left: -300px;
     /* Escondido a la izquierda */
-    width: 250px;
+    width: 300px;
     height: 100%;
-    background-color: #0a0e1a;
+    background-color: #0f172a;
     /*fondo del menu lateral*/
     color: white;
-    transition: 0.3s;
+    /*transition: 0.3s;*/
     /* Velocidad del despliegue */
-    z-index: 1001;
+    z-index: 2000;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    padding-top: 60px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.menu-content h2 {
+.menu-content h3 {
     /*titulo nova game */
     text-align: center;
     cursor: pointer;
@@ -704,6 +715,15 @@ select {
 .side-menu.active {
     left: 0;
     /* Se muestra */
+}
+
+
+.menu-content {
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Estilo de los textos enlaces del menú */
@@ -863,7 +883,7 @@ select {
 /* Toque Neón */
 .resaltado-neon {
     color: #00f2ff;
-    text-shadow: 0 0 10px #00f2ff;
+    /*text-shadow: 0 0 10px #00f2ff;*/
 }
 
 /* Botón decorativo dentro del banner */
@@ -883,7 +903,7 @@ select {
 .btn-oferta:hover {
     background: #00f2ff;
     color: #0a0e1a;
-    box-shadow: 0 0 15px #00f2ff;
+    /*box-shadow: 0 0 15px #00f2ff;*/
 }
 
 /* Indicadores (Puntitos) */
@@ -1002,7 +1022,7 @@ input:-webkit-autofill {
     width: 90%;
     /* En móviles casi todo el ancho */
     max-width: 350px;
-    background: #1a1a2e;
+    background: #0f172a;
     /* Un azul muy oscuro sólido */
     border: 1px solid #b1b3b3;
     /* Borde neón para que se note */
@@ -1014,6 +1034,49 @@ input:-webkit-autofill {
 }
 
 
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links li a i {
+    margin-right: 15px;
+    width: 20px;
+    color: #f3ae1a;
+    /*color: var(--accent);*/
+}
+
+.nav-links li a:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: #f3ae1a;
+    /*color: var(--accent);*/
+}
+
+.menu-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 10px 25px;
+}
+
+/*HISTORIAL*/
 .ticket-historial {
     padding: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -1131,7 +1194,7 @@ input:-webkit-autofill {
     z-index: 1001;
     /* Un nivel más arriba que la barra negra */
     font-size: 1.6rem;
-    color: #00f2ff;
+    color: #ffffff;
     /* Color neón para que lo veas rápido */
     cursor: pointer;
     display: flex;
@@ -1141,7 +1204,7 @@ input:-webkit-autofill {
 
 .btn-historial-flotante:hover {
     transform: scale(1.1);
-    color: #00f2ff;
+    color: #f3ae1a;
 }
 
 /* FOOTER */
@@ -1159,7 +1222,7 @@ footer {
     text-decoration: none;
 }
 
-/*nuevo css para el footer 24/7*/
+/*nuevo css para el footer*/
 .main-footer {
     background: linear-gradient(to bottom, #111827, #030712);
     /* Degradado oscuro */
@@ -1169,7 +1232,6 @@ footer {
     margin-top: 200px;
     color: #94a3b8;
     text-align: center;
-
     width: 100%;
 }
 
@@ -1236,18 +1298,21 @@ footer {
 /* Asegura que el footer del modal use Flexbox para centrar */
 .footer-formulario-fijo {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
+    justify-content: center;
+    /* Centra horizontalmente */
     align-items: center;
     padding: 15px 20px;
     background: #1a2235;
     border-top: 2px solid #334155;
     width: 100%;
-    box-sizing: border-box; /* Evita que el padding ensanche el modal */
+    box-sizing: border-box;
+    /* Evita que el padding ensanche el modal */
 }
 
 /* MODAL 1: Paquete a la izquierda, Botón a la derecha */
 .footer-separado {
-    justify-content: space-between; /* Este es el secreto */
+    justify-content: space-between;
+    /* Este es el secreto */
 }
 
 /* MODAL 2: Todo al centro */
@@ -1257,11 +1322,13 @@ footer {
 
 /* Fuerza al botón a no pegarse a la izquierda */
 .btn-whatsapp.btn-accion-fijo {
-    margin: 0 auto !important; /* Margen automático a los lados */
+    margin: 0 auto !important;
+    /* Margen automático a los lados */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 200px; /* Ancho mínimo para que se vea importante */
+    min-width: 200px;
+    /* Ancho mínimo para que se vea importante */
 
     width: auto !important;
     min-width: 140px;
@@ -1301,7 +1368,9 @@ footer {
 }
 
 @keyframes stroke {
-    100% { stroke-dashoffset: 0; }
+    100% {
+        stroke-dashoffset: 0;
+    }
 }
 
 /* Efecto de pulso suave al terminar */
@@ -1311,9 +1380,17 @@ footer {
 }
 
 @keyframes pulse-green {
-    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
 }
 
 /*COMO RECARGAR*/
@@ -1321,7 +1398,8 @@ footer {
 /* Contenedor principal de la sección */
 .como-recargar {
     padding: 40px 20px;
-    text-align: center; /* Centra el texto del h2 y p */
+    text-align: center;
+    /* Centra el texto del h2 y p */
     font-family: 'Inter', 'Segoe UI', sans-serif;
     font-size: 0.8rem;
 }
@@ -1332,7 +1410,7 @@ footer {
     font-size: 2em;
 }
 
-.como-recargar > p {
+.como-recargar>p {
     margin-bottom: 40px;
     color: #666;
     font-size: 1.2em;
@@ -1341,32 +1419,38 @@ footer {
 /* Grid de 3 columnas para los pasos */
 .pasos {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 3 columnas iguales */
-    gap: 20px; /* Espacio entre columnas */
-    max-width: 1200px; /* Ancho máximo para pantallas grandes */
-    margin: 0 auto; /* Centra el contenedor grid */
+    /* 4 columnas iguales */
+    /*grid-template-columns: repeat(4, 1fr);*/
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 45px;
+    /* Espacio entre columnas */
+    max-width: 1200px;
+    /* Ancho máximo para pantallas grandes */
+    margin: 0 auto;
+    /* Centra el contenedor grid */
     justify-items: center;
 }
 
 /* Estilo para cada paso individual */
-.pasos > div {
-    background-color:#0a0f1d;
-    padding: 10px;
+.pasos>div {
+    background-color: #0a0f1d;
+    padding: 15px;
     border-radius: 8px;
     border: 0px solid #eee;
     text-align: center;
-    width: 210px;
+    width: 240px;
 }
 
 /* Centrar el icono SVG */
-.pasos > div > div {
+.pasos>div>div {
     display: flex;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    color:#f3ae1a
 }
 
 .pasos h3 {
-    margin-top: 0;
+    margin-top: 0px;
     margin-bottom: 10px;
 }
 
@@ -1376,5 +1460,3 @@ footer {
         grid-template-columns: 1fr;
     }
 }
-
-
