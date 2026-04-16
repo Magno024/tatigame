@@ -5,27 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Game Store</title>
-    <link rel="icon" href="img/icono.png">
+    <link rel="icon" href="img/icono-web.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Smartsupp Live Chat script 
-    <script type="text/javascript">
-        var _smartsupp = _smartsupp || {};
-        _smartsupp.key = '998abbd15d57ad2a6ac1a044033edd4b4170d172';
-        window.smartsupp || (function (d) {
-            var s, c, o = smartsupp = function () { o._.push(arguments) }; o._ = [];
-            s = d.getElementsByTagName('script')[0]; c = d.createElement('script');
-            c.type = 'text/javascript'; c.charset = 'utf-8'; c.async = true;
-            c.src = 'https://www.smartsuppchat.com/loader.js?'; s.parentNode.insertBefore(c, s);
-        })(document);
-    </script>
-    <noscript>Powered by <a href="https://www.smartsupp.com" target="_blank">Smartsupp</a></noscript>
--->
 </head>
 
 <body>
-
     <!-- Fondo oscuro cuando el menú está abierto (opcional) -->
     <div id="overlay" onclick="toggleMenu()"></div>
 
@@ -56,45 +41,62 @@
                 </div>
             </div>
             <!-- fin historial -->
-            <!-- carrusel -->
-            <div class="carrusel-contenedor">
-                <div class="carrusel-track" id="carrusel-track">
 
-                    <div class="carrusel-slide glass-card" style="background-image: url('img/banner1.jpg');">
+            <!--nuevo carrisel-->
+            <div class="carousel">
+                <div class="carousel__track">
+                    <!-- 5 Imágenes -->
+                    <div class="slide"><img src="img/banner-free-1.jpg" alt="Imagen 1">
+                        <div class="carrusel-info">
+                            <h2>10% de <span class="resaltado-neon">BONUS</span></h2>
+                            <p>En todas tus recargas de Free Fire</p>
+                            <button class="btn-oferta" onclick="abrirFormulario('ff')">Recargar</button>
+                        </div>
+                    </div>
+                    <div class="slide"><img src="img/banner-mlbb-1.jpg" alt="Imagen 2">
+                        <div class="carrusel-info">
+                            <h2>DIAMANTES con <span class="resaltado-neon">DESCUENTOS</span></h2>
+                            <p>Aprovecha las Ofertas de la Semana</p>
+                            <button class="btn-oferta" onclick="abrirFormulario('ml')">Recargar</button>
+                        </div>
+                    </div>
+                    <div class="slide"><img src="img/banner-gs-1.jpg" alt="Imagen 3">
+                        <div class="carrusel-info">
+                            <h2>15% de Bonus <span class="resaltado-neon">En cada recarga</span></h2>
+                            <p>Cristales a precios de Oferta</p>
+                            <button class="btn-oferta" onclick="abrirFormulario('gs')">Recargar</button>
+                        </div>
+                    </div>
+                    <div class="slide"><img src="img/banner-pubg.jpg" alt="Imagen 4">
+                        <div class="carrusel-info">
+                            <h2>Recargas <span class="resaltado-neon">Pubg Mobile</span></h2>
+                            <p>Aprovecha las Ofertas de la Semana</p>
+                            <button class="btn-oferta" onclick="abrirFormulario('pg')">Recargar</button>
+                        </div>
+                    </div>
+                    <div class="slide"><img src="img/banner1o.jpg" alt="Imagen 5">
                         <div class="carrusel-info">
                             <h2>RECARGAS AL <span class="resaltado-neon">INSTANTE</span></h2>
                             <p>Verificado por miles de clientes</p>
                             <button class="btn-oferta"
                                 onclick="window.open('https://facebook.com/groups/664921335647676', '_blank')">Saber
-                                Más</button>
+                                Más..</button>
                         </div>
                     </div>
-
-                    <div class="carrusel-slide glass-card" style="background-image: url('img/banner2.jpg');">
-                        <div class="carrusel-info">
-                            <h2>+10% de <span class="resaltado-neon">BONUS</span></h2>
-                            <p>En todas las recargas de Free Fire</p>
-                            <button class="btn-oferta" onclick="abrirFormulario('ff')">Recargar FF</button>
-                        </div>
-                    </div>
-
-                    <div class="carrusel-slide glass-card" style="background-image: url('img/banner3.jpg');">
-                        <div class="carrusel-info">
-                            <h2>DIAMANTES con <span class="resaltado-neon">DESCUENTOS</span></h2>
-                            <p>Aprovecha las ofertas de la semana</p>
-                            <button class="btn-oferta" onclick="abrirFormulario('ml')">Recargar MLBB</button>
-                        </div>
-                    </div>
-
                 </div>
+                <!-- Flechas -->
+                <button class="btn prev" onclick="mover(-1)">&#10094;</button>
+                <button class="btn next" onclick="mover(1)">&#10095;</button>
 
-                <div class="carrusel-indicadores" id="carrusel-indicadores">
-                    <span class="punto activo"></span>
-                    <span class="punto"></span>
-                    <span class="punto"></span>
+                <!-- Puntos indicadores -->
+                <div class="carousel__dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
                 </div>
             </div>
-
         </header>
 
         <!-- Menú lateral que se despliega -->
@@ -102,49 +104,20 @@
             <div class="menu-content">
                 <div class="logo">NOVA GAME<span> STORE</span></div>
                 <button class="close-btn" onclick="toggleMenu()">&times;</button>
-                <!--
-             Opción de WhatsApp
-            <a href="https://wa.me/59178914558" target="_blank"
-                style="display: flex; align-items: center; text-decoration: none; color: rgb(250, 248, 248);">
-                <img src="img/wat.png" alt="WhatsApp" width="20" height="20" style="margin-right: 8px;">
-                Chatea con nosotros
-            </a>
-             Opción facebook 
-            <a href="https://facebook.com/groups/664921335647676" target="_blank"
-                style="display: flex; align-items: center; text-decoration: none; color: rgb(250, 248, 248);">
-                <img src="img/fc.png" alt="Facebook" width="20" height="20" style="margin-right: 8px;">
-                Visitanos
-            </a>
-            Opción de Términos y Condiciones 
-            <a href="terminos.html" target="_blank"
-                style="display: flex; align-items: center; text-decoration: none; color: rgb(250, 248, 248);">
-                <img src="img/tyc.png" alt="Terminos" width="20" height="20" style="margin-right: 8px;">
-                Terminos y Condiciones
-            </a>
-            -->
+
             </div>
             <ul class="nav-links">
                 <li><a href="index.html" onclick="toggleMenu()"><i class="fas fa-home"></i> Inicio</a></li>
                 <li><a href="#" onclick="toggleMenu()"><i class="fas fa-history"></i> Mi Historial</a></li>
                 <li><a href="#" onclick="toggleMenu()"><i class="fas fa-book"></i> Tutoriales</a></li>
-                <li><a href="terminos.html" target="_blank" onclick="toggleMenu()"><i class="fas fa-file-contract"></i>
-                        Términos</a>
-                </li>
+                <li><a href="terminos.html" target="_blank" onclick="toggleMenu()"><i
+                            class="fas fa-file-contract"></i>Términos</a></li>
                 <hr class="menu-divider">
                 <li><a href="https://wa.me/59178914558" target="_blank" onclick="toggleMenu()"><i
-                            class="fab fa-whatsapp"></i> Contacto
-                        Soporte</a></li>
+                            class="fab fa-whatsapp"></i> Contacto Soporte</a></li>
             </ul>
         </div>
-
-        <!---
-        <section id="seccion-historial" class="container">
-            <h3 class="titulo-seccion"><i class="fas fa-history"></i> Mis Recargas Recientes</h3>
-            <div id="lista-historial" class="grid-historial">
-            </div>
-        </section>
--->
-
+        <!-- catalogo de juegos -->
         <div class="titulo-seccion">
             <h2>🎮 JUEGOS POPULARES</h2>
             <!--<div class="linea-decorativa"></div>-->
@@ -215,20 +188,12 @@
             <p><br>Nota: Verifica en Historial el Estado de tu Recarga.</p>
         </section>
 
-        <!-- pie de pagina 
-        <footer class="footer-v2">
-            <a href="#" onclick="abrirTerminos()">Términos y Condiciones</a>
-            <a href="https://facebook.com/groups/664921335647676" target="_blank">Facebook</a>
-            <a href="https://wa.me/59178914558" target="_blank">WhatsApp</a>
-        </footer>
--->
-
         <!-- boton wa flotamnte -->
         <a href="https://wa.me/59178914558" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-            <img src="img/wa.png" alt="WhatsApp">
+            <img src="img/logo-wa-bla.png" alt="WhatsApp">
         </a>
     </div>
-    <!--xxxxxxxxxxxxxxxxxxxx-->
+    <!-- formulario de recarga -->
 
     <div id="vista-formulario" class="modal-overlay hidden">
         <div class="card-v2">
@@ -281,8 +246,8 @@
             </div>
         </div>
     </div>
-    <!--xxxxxxxxxxxxxxxxxxxx-->
 
+    <!-- ticket detalle de compra-->
     <div id="vista-ticket" class="modal-overlay hidden">
         <div class="card-v2">
             <button class="btn-cerrar-v2" onclick="cerrarTicket()">×</button>
@@ -419,18 +384,6 @@
             </div>
         </div>
     </div>
-    <!--    
-    <div id="modal-terminos" class="modal-overlay hidden">
-        <div class="card-v2">
-            <button class="btn-cerrar-v2" onclick="cerrarTerminos()">×</button>
-            <h2 class="titulo-v2">TÉRMINOS</h2>
-            <div class="scroll-v2">
-                <p>1. No hay devoluciones por errores en el ID...</p>
-                <p>2. Las recargas tardan de 3 a 5 minutos...</p>
-            </div>
-        </div>
-    </div>
--->
 
     <!-- FOOTER 
     <footer>
@@ -453,29 +406,25 @@
     </div>
 </footer> -->
 
-
+    <!--FOOTER-->
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-info">
                 <h3>NOVA GAME STORE</h3>
 
                 <div class="footer-links">
-                    <p>Recargas a toda Bolivia 🇧🇴</p>
+                    <p>🇧🇴 Recargas a toda Bolivia 🇧🇴</p>
                     <p><a href="https://facebook.com/groups/664921335647676" target="_blank">Facebook</a></p>
                 </div>
             </div>
-            <!--
-        <div class="footer-status">
-            <span class="status-dot"></span> xxx
-        </div>
-        -->
+
             <div class="footer-copyright">
                 © 2026 Nova Game Store. | www.novagamestore.com
             </div>
         </div>
     </footer>
 
-
+    <!--FIREBASE-->
     <script type="module">
         // 1. Importar todas las herramientas necesarias
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";

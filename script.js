@@ -11,10 +11,10 @@ const DATOS_PAGO = {
 //imagnes y nombres de catalogo de juegos
 const JUEGOS = [
     { id: "ff", nombre: "FREE FIRE", img: "img/ff.png", color: '#00b2ff', bg: 'img/fff.jpg', paquetes: [{ n: "100+10 💎", p: "12 Bs" }, { n: "310+31 💎", p: "35 Bs" }, { n: "520+52 💎", p: "50 Bs" }, { n: "1060+106 💎", p: "90 Bs" }, { n: "2180+218 💎", p: "175 Bs" }, { n: "5600+560 💎", p: "420 Bs" }, { n: "Semanal Basica", p: "6 Bs" }, { n: "Tarjeta Semanal", p: "20 Bs" }, { n: "Tarjeta Mensual", p: "85 Bs" }] },
-    { id: "ml", nombre: "MOBILE LEGENDS", img: "img/mlbb.png", color: '#f3ae1a', bg: 'img/fml.png', requiereZona: true, paquetes: [{ n: "50 💎", p: "10 Bs" }, { n: "78+8 💎", p: "16 Bs" }, { n: "156+16 💎", p: "30 Bs" }, { n: "234+23 💎", p: "40 Bs" }, { n: "625+81 💎", p: "110 Bs" }, { n: "1860+335 💎", p: "295 Bs" }, { n: "3099+589 💎", p: "495 Bs" }, { n: "Pase Semanal", p: "20 Bs" }, { n: "Pase Crepuscular", p: "90 Bs" }] },
-    { id: "gs", nombre: "GENSHIN IMPACT", img: "img/gs.png", color: '#bd28ce', bg: 'img/fml.png', requiereRegion: true, paquetes: [{ n: "60 💠", p: "15 Bs" }, { n: "300+30 💠", p: "50 Bs" }, { n: "980+110 💠", p: "125 Bs" }, { n: "1980+260 💠", p: "250 Bs" }, { n: "3280+600 💠", p: "410 Bs" }, { n: "Bendición Lunar 🌙", p: "50 Bs" }] },
-    { id: "pg", nombre: "PUBG MOBILE", img: "img/pubg.jpg", color: '#0a9b9b', bg: 'img/fml.png', paquetes: [{ n: "60 💵", p: "15 Bs" }, { n: "300+25 💵", p: "60 Bs" }, { n: "600+60 💵", p: "110 Bs" }, { n: "1500+300 💵", p: "260 Bs" }] },
-    { id: "bl", nombre: "BLOOD STRIKE", img: "img/blood.jpg", color: '#f30f22', bg: 'img/fml.png', paquetes: [{ n: "100+5 🧈", p: "10 Bs" }, { n: "300+20 🧈", p: "28 Bs" }, { n: "500+40 🧈", p: "45 Bs" }, { n: "1000+100 🧈", p: "85 Bs" }, { n: "2000+260 🧈", p: "165 Bs" }, { n: "5000+800 🧈", p: "390 Bs" }] }
+    { id: "ml", nombre: "MOBILE LEGENDS", img: "img/ml-small.png", color: '#f3ae1a', bg: 'img/fml.png', requiereZona: true, paquetes: [{ n: "50 💎", p: "10 Bs" }, { n: "78+8 💎", p: "16 Bs" }, { n: "156+16 💎", p: "30 Bs" }, { n: "234+23 💎", p: "40 Bs" }, { n: "625+81 💎", p: "110 Bs" }, { n: "1860+335 💎", p: "295 Bs" }, { n: "3099+589 💎", p: "495 Bs" }, { n: "Pase Semanal", p: "20 Bs" }, { n: "Pase Crepuscular", p: "90 Bs" }] },
+    { id: "gs", nombre: "GENSHIN IMPACT", img: "img/gs-small.png", color: '#bd28ce', bg: 'img/fml.png', requiereRegion: true, paquetes: [{ n: "60 💠", p: "15 Bs" }, { n: "300+30 💠", p: "50 Bs" }, { n: "980+110 💠", p: "125 Bs" }, { n: "1980+260 💠", p: "250 Bs" }, { n: "3280+600 💠", p: "410 Bs" }, { n: "Bendición Lunar 🌙", p: "50 Bs" }] },
+    { id: "pg", nombre: "PUBG MOBILE", img: "img/pubg-small.png", color: '#0a9b9b', bg: 'img/fml.png', paquetes: [{ n: "60 💵", p: "15 Bs" }, { n: "300+25 💵", p: "60 Bs" }, { n: "600+60 💵", p: "110 Bs" }, { n: "1500+300 💵", p: "260 Bs" }] },
+    { id: "bl", nombre: "BLOOD STRIKE", img: "img/blood-small.png", color: '#f30f22', bg: 'img/fml.png', paquetes: [{ n: "100+5 🧈", p: "10 Bs" }, { n: "300+20 🧈", p: "28 Bs" }, { n: "500+40 🧈", p: "45 Bs" }, { n: "1000+100 🧈", p: "85 Bs" }, { n: "2000+260 🧈", p: "165 Bs" }, { n: "5000+800 🧈", p: "390 Bs" }] }
 ];
 
 let sel = { juego: null, paquete: null, metodo: null, id: "", nick: "", extra: "" };
@@ -534,7 +534,7 @@ function guardarEnHistorialLocal(pedido) {
 
     historial.push(nuevoItemHistorial);
 
-    // Solo guardamos los últimos 10 para no llenar la memoria del cel
+    // Solo guardamos los últimos 5 para no llenar la memoria del cel
     if (historial.length > 5) historial.shift();
 
     localStorage.setItem('mis_pedidos_elite', JSON.stringify(historial));
@@ -642,10 +642,77 @@ window.onpopstate = function (event) {
     }
 };
 
-
-
-
 // --- LÓGICA DEL CARRUSEL ---
+const track = document.querySelector('.carousel__track');
+const nextBtn = document.querySelector('.next');
+const prevBtn = document.querySelector('.prev');
+
+const dots = document.querySelectorAll('.dot');
+let contador = 0; // Para rastrear qué punto activar
+
+function actualizarDots(indice) {
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[indice].classList.add('active');
+}
+
+function moverSiguiente() {
+  const slides = document.querySelectorAll('.slide');
+  // Movemos el track hacia la izquierda
+  track.style.transition = "transform 0.5s ease-in-out";
+  track.style.transform = `translateX(-100%)`;
+
+// Lógica del contador para los dots (0 a 4)
+  contador = (contador + 1) % dots.length;
+  actualizarDots(contador);
+
+  // Al terminar la animación, reordenamos el DOM
+  setTimeout(() => {
+    track.style.transition = "none";
+    track.appendChild(slides[0]); // Mueve el primero al final
+    track.style.transform = `translateX(0)`;
+  }, 500);
+}
+
+function moverAnterior() {
+  const slides = document.querySelectorAll('.slide');
+
+// Lógica del contador para los dots
+  contador = (contador - 1 + dots.length) % dots.length;
+  actualizarDots(contador);
+
+  track.style.transition = "none";
+  // Mueve el último al inicio antes de mostrarlo
+  track.prepend(slides[slides.length - 1]);
+  track.style.transform = `translateX(-100%)`;
+  
+  setTimeout(() => {
+    track.style.transition = "transform 0.5s ease-in-out";
+    track.style.transform = `translateX(0)`;
+  }, 10);
+}
+
+// Botones y Auto-play
+document.querySelector('.next').addEventListener('click', moverSiguiente);
+document.querySelector('.prev').addEventListener('click', moverAnterior);
+let autoPlay = setInterval(moverSiguiente, 5000);
+
+/*
+// Eventos de flechas
+nextBtn.addEventListener('click', moverSiguiente);
+prevBtn.addEventListener('click', moverAnterior);
+
+// Auto-play cada 5 segundos
+let autoPlay = setInterval(moverSiguiente, 5000);
+*/
+
+// Pausar al poner el mouse encima
+document.querySelector('.carousel').addEventListener('mouseenter', () => clearInterval(autoPlay));
+document.querySelector('.carousel').addEventListener('mouseleave', () => autoPlay = setInterval(moverSiguiente, 5000));
+
+
+
+
+/*
 let slideActual = 0;
 const slides = document.querySelectorAll('.carrusel-slide');
 const track = document.getElementById('carrusel-track');
@@ -682,37 +749,9 @@ puntos.forEach((punto, i) => {
         autoPlay = setInterval(() => cambiarSlide(slideActual + 1), 5000);
     });
 });
-/*
-function cargarHistorial() {
-    const lista = document.getElementById("lista-historial-v2");
-    const historial = JSON.parse(localStorage.getItem('mis_pedidos_elite')) || [];
-
-    if (historial.length === 0) {
-        lista.innerHTML = "<p style='text-align:center; opacity:0.5; padding:20px;'>No tienes pedidos aún.</p>";
-        return;
-    }
-
-    lista.innerHTML = "";
-    historial.reverse().forEach(pedido => {
-        lista.innerHTML += `
-            <div class="ticket-historial">
-                <div class="fila-superior">
-                    <span class="juego-nombre">${pedido.juego}</span>
-                    <span class="pedido-id">#${pedido.idPedido || 'S/N'}</span>
-                </div>
-                <div class="fila-media">
-                    <span class="paquete-info">${pedido.paquete}</span>
-                    <span class="precio-info">${pedido.precio}</span>
-                </div>
-                <div class="fila-inferior">
-                    <span class="fecha-info">${pedido.fecha}</span>
-                    <span class="estado-badge ${pedido.estado.toLowerCase()}">${pedido.estado}</span>
-                </div>
-            </div>
-        `;
-    });
-}
 */
+
+
 
 async function cargarHistorial() {
     const lista = document.getElementById("lista-historial-v2");
@@ -868,6 +907,23 @@ window.addEventListener("beforeunload", () => {
 
 
 async function enviarNotificacionTelegram(datos) {
+    const URL_FIREBASE = "https://enviarmensajebot-itbyzbuzha-uc.a.run.app"; // La que te dio la terminal
+
+    try {
+        await fetch(URL_FIREBASE, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos) // Enviamos el objeto 'datos' tal cual
+        });
+        console.log("Notificación enviada al servidor");
+    } catch (e) {
+        console.error("Error al contactar al servidor:", e);
+    }
+}
+
+
+/*
+async function enviarNotificacionTelegram(datos) {
     const token = "8731862768:AAFMlGF49gkDmOqUy-nlKbHnFfSk2owVIbI";
     const chatId = "8730026280";
 
@@ -905,7 +961,7 @@ async function enviarNotificacionTelegram(datos) {
         console.error("Error Telegram:", e);
     }
 }
-
+*/
 /* codigo antes del error
 async function enviarNotificacionTelegram(datos) {
     const token = "8731862768:AAFMlGF49gkDmOqUy-nlKbHnFfSk2owVIbI"; // <--- PEGA AQUÍ TU TOKEN DE BOTFATHER
@@ -975,3 +1031,59 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
+
+//tactil para el banner en celular
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Función para procesar el gesto
+function procesarGesto() {
+  const diferencia = touchStartX - touchEndX;
+  const umbral = 50; // Mínimo de píxeles para considerar que fue un deslizamiento
+
+  if (diferencia > umbral) {
+    // Deslizó hacia la izquierda -> Siguiente
+    moverSiguiente();
+  } else if (diferencia < -umbral) {
+    // Deslizó hacia la derecha -> Anterior
+    moverAnterior();
+  }
+}
+
+// Eventos táctiles
+const carrusel = document.querySelector('.carousel');
+
+carrusel.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, {passive: true});
+
+carrusel.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  procesarGesto();
+}, {passive: true});
+
+/*
+// Ya NO hay API Keys aquí
+function enviarNotificacion(texto) {
+    fetch("URL_DE_TU_FUNCION_FIREBASE", {
+        method: "POST",
+        body: JSON.stringify({ mensaje: texto }),
+        headers: { "Content-Type": "application/json" }
+    });
+}
+    */
+/*
+// Este es tu nuevo script.js SEGURO
+function enviarNotificacion(texto) {
+    const urlDeMiFuncion = "https://enviarmensajebot-itbyzbuzha-uc.a.run.app";
+
+    fetch(urlDeMiFuncion, {
+        method: "POST",
+        body: JSON.stringify({ mensaje: texto }),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(data => console.log("¡Éxito!", data))
+    .catch(err => console.error("Error:", err));
+}
+    */
