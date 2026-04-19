@@ -10,7 +10,7 @@ const DATOS_PAGO = {
 };
 //imagnes y nombres de catalogo de juegos
 const JUEGOS = [
-    { id: "ff", nombre: "FREE FIRE", img: "img/ff.png", color: '#00b2ff', bg: 'img/fff.jpg', paquetes: [{ n: "100+10 💎", p: "12 Bs" }, { n: "310+31 💎", p: "35 Bs" }, { n: "520+52 💎", p: "50 Bs" }, { n: "1060+106 💎", p: "90 Bs" }, { n: "2180+218 💎", p: "175 Bs" }, { n: "5600+560 💎", p: "420 Bs" }, { n: "Semanal Basica", p: "6 Bs" }, { n: "Tarjeta Semanal", p: "20 Bs" }, { n: "Tarjeta Mensual", p: "85 Bs" }] },
+    { id: "ff", nombre: "FREE FIRE", img: "img/ff.png", color: '#00b2ff', bg: 'img/fff.jpg', paquetes: [{ n: "100+10 💎", p: "Bs 12.0" }, { n: "310+31 💎", p: "Bs 35.0" }, { n: "520+52 💎", p: "50 Bs" }, { n: "1060+106 💎", p: "90 Bs" }, { n: "2180+218 💎", p: "175 Bs" }, { n: "5600+560 💎", p: "420 Bs" }, { n: "Semanal Basica", p: "6 Bs" }, { n: "Tarjeta Semanal", p: "20 Bs" }, { n: "Tarjeta Mensual", p: "85 Bs" }] },
     { id: "ml", nombre: "MOBILE LEGENDS", img: "img/ml-small.png", color: '#f3ae1a', bg: 'img/fml.png', requiereZona: true, paquetes: [{ n: "50 💎", p: "10 Bs" }, { n: "78+8 💎", p: "16 Bs" }, { n: "156+16 💎", p: "30 Bs" }, { n: "234+23 💎", p: "40 Bs" }, { n: "625+81 💎", p: "110 Bs" }, { n: "1860+335 💎", p: "295 Bs" }, { n: "3099+589 💎", p: "495 Bs" }, { n: "Pase Semanal", p: "20 Bs" }, { n: "Pase Crepuscular", p: "90 Bs" }] },
     { id: "gs", nombre: "GENSHIN IMPACT", img: "img/gs-small.png", color: '#bd28ce', bg: 'img/fml.png', requiereRegion: true, paquetes: [{ n: "60 💠", p: "15 Bs" }, { n: "300+30 💠", p: "50 Bs" }, { n: "980+110 💠", p: "125 Bs" }, { n: "1980+260 💠", p: "250 Bs" }, { n: "3280+600 💠", p: "410 Bs" }, { n: "Bendición Lunar 🌙", p: "50 Bs" }] },
     { id: "pg", nombre: "PUBG MOBILE", img: "img/pubg-small.png", color: '#0a9b9b', bg: 'img/fml.png', paquetes: [{ n: "60 💵", p: "15 Bs" }, { n: "300+25 💵", p: "60 Bs" }, { n: "600+60 💵", p: "110 Bs" }, { n: "1500+300 💵", p: "260 Bs" }] },
@@ -45,8 +45,8 @@ function abrirFormulario(id) {
 
     // Forzar el efecto de cristal con el color del juego
     const form = document.getElementById("vista-formulario");
-    form.style.backdropFilter = "blur(0)";
-    form.style.backgroundColor = "rgba(15, 23, 42, 0.7)";
+    //form.style.backdropFilter = "blur(0)";
+    //form.style.backgroundColor = "rgba(15, 23, 42, 0.7)";
     form.style.border = `1px solid ${sel.juego.color}44`; // Borde sutil del color del juego
 
     if (titulo) {
@@ -59,13 +59,16 @@ function abrirFormulario(id) {
     // 2. Cambiar de vista
     document.getElementById("vista-catalogo").classList.add("hidden");
     document.getElementById("vista-formulario").classList.remove("hidden");
+    
+    // Agregar clase para ocultar footer
+    document.body.classList.add("modal-open");
 
     // 3. Logo de juego seleccionado en formulario y campos
     document.getElementById("logo-juego-contenedor").innerHTML = `
         <img src="${sel.juego.img}" style="width:70px; display:block; margin: 0 auto 15px; border-radius:10px; border: 0px solid ${colorPrimario};">
     `;
     //muestra la imagen en la vista de los paquetes
-    document.getElementById("logo-juego-contenedor").innerHTML = `<img src="${sel.juego.img}" style="width:70px; display:block; margin: 0 auto 15px; border-radius:10px;">`;
+    //**//document.getElementById("logo-juego-contenedor").innerHTML = `<img src="${sel.juego.img}" style="width:70px; display:block; margin: 0 auto 15px; border-radius:10px;">`;
     //
     document.getElementById("zona-jugador").classList.toggle("hidden", !sel.juego.requiereZona);
     document.getElementById("region-jugador").classList.toggle("hidden", !sel.juego.requiereRegion);
@@ -126,7 +129,7 @@ function abrirFormulario(id) {
 
 
     const colorBase = sel.juego.color || '#0fd6e0';
-
+    //el if creo que ya no hace nada, lo borre y todo seguia igual
     // Aplicar un ligero resplandor del color del juego al borde del cristal
     const formGlass = document.getElementById("vista-formulario");
     if (formGlass) {
@@ -194,19 +197,28 @@ function seleccionarMetodo(m) {
     document.getElementById("btn-qr").classList.toggle("selected", m === 'QR Simple');
     document.getElementById("btn-tigo").classList.toggle("selected", m === 'Tigo Money');
 }
-
+//boton comprar ahora
 function procesarSolicitud() {
     sel.id = document.getElementById("id-jugador").value;
     sel.nick = document.getElementById("nick-jugador").value || "No especificado";
-    const zona = document.getElementById("zona-jugador").value;
-    const region = document.getElementById("region-jugador").value;
 
-    if (!sel.id || !sel.paquete || !sel.metodo) return mostrarNotificacion("Completa los datos requeridos");
+    const zona = document.getElementById("zona-jugador").value || "0000";
+    const region = document.getElementById("region-jugador").value || "n/a";
+
+    //if (!sel.id || !sel.paquete || !sel.metodo) return mostrarNotificacion("Completa los datos requeridos");
+
+    if (!sel.id) return mostrarNotificacion("Ingresa tu ID");
+    if (!sel.paquete) return mostrarNotificacion("Selecciona un paquete");
+    if (!sel.metodo) return mostrarNotificacion("Selecciona un Método de Pago");
+
     // Guardar dato extra (Zona o Región)
-    sel.extra = sel.juego.requiereZona ? `(Zona: ${zona})` : (sel.juego.requiereRegion ? `(Región: ${region})` : "");
+    sel.extra = sel.juego.requiereZona ? `(${zona})` : (sel.juego.requiereRegion ? `(${region})` : "");
 
+    //oculta la sección del formulario y muestra la sección del ticket
     document.getElementById("vista-formulario").classList.add("hidden");
     document.getElementById("vista-ticket").classList.remove("hidden");
+    
+    // Mantener la clase modal-open para seguir ocultando el footer
 
     // RESUMEN EN PANTALLA
     document.getElementById("resumen-ticket").innerHTML = `
@@ -215,7 +227,7 @@ function procesarSolicitud() {
         <div class="ticket-item"><span>Nickname:</span> <code>${sel.nick}</code></div>
         <div class="ticket-item"><span>Paquete:</span> <code>${sel.paquete.n}</code></div>
         <div class="ticket-item"><span>Método de Pago:</span> <code>${sel.metodo}</code></div>
-        <div class="ticket-item"><span><h3>TOTAL:</h3></span> <code><h3>${sel.paquete.p}</h3></code></div>
+        <div class="ticket-item"><span><h3>TOTAL:</h3></span> <h3>${sel.paquete.p}</h3></div>
     `;
 
     mostrarInfoPago();
@@ -271,7 +283,6 @@ function mostrarInfoPago() {
     if (btncopiarmini) {
         btncopiarmini.style.backgroundColor = colorJuego;
     }
-
 
     // OTRO PASO EN EL HISTORIAL:
     history.pushState({ paso: "ticket" }, "Ticket", "#ticket");
@@ -329,13 +340,90 @@ function mostrarVistaPrevia(event) {
     }
 }
 
+//FINALIZAR RECARGA
 async function finalizarRecarga() {
     const fileInput = document.getElementById('input-comprobante');
     const status = document.getElementById('status-carga');
     const btnEnvio = document.querySelector(".btn-enviar-wa");
 
     if (!fileInput.files[0]) {
-        mostrarNotificacion("Selecciona la foto del comprobante antes de enviar.");
+        mostrarNotificacion("¡Adjuntar comprobante de pago!");
+        return;
+    }
+
+    // Feedback inicial
+    status.innerText = "⏳ Subiendo comprobante y registrando...";
+    status.style.color = "#f3ae1a";
+    if (btnEnvio) btnEnvio.disabled = true;
+
+    try {
+        // --- PASO A: Subir comprobante ---
+        const linkFoto = await window.subirArchivoFB(fileInput.files[0]);
+
+        // --- PASO B: Preparar los datos ---
+        const zonaML = document.getElementById("zona-jugador")?.value || null;
+        const regionGenshin = document.getElementById("region-jugador")?.value || null;
+
+        const datosParaDB = {
+            juego: sel.juego.nombre,
+            id_jugador: sel.id,
+            id_zona: zonaML,
+            region: regionGenshin,
+            nickname: sel.nick,
+            paquete: sel.paquete.n,
+            precio: sel.paquete.p,
+            metodo: sel.metodo,
+            comprobante: linkFoto,
+            fecha: new Date().toLocaleString(),
+            estado: "Pendiente",
+            idPedido: "REC-" + Math.random().toString(36).substr(2, 6).toUpperCase()
+        };
+
+        // --- PASO C: Guardar en Firebase ---
+        // Usamos la función global que ya tienes configurada
+        if (window.guardarPedidoFB) {
+            await window.guardarPedidoFB(datosParaDB);
+        } else {
+            // Backup por si la función global no está disponible
+            const dbRef = ref(getDatabase(), 'pedidos/' + datosParaDB.idPedido);
+            await set(dbRef, datosParaDB);
+        }
+
+        // --- PASO D: Interfaz Final ---
+        // Eliminamos status.innerText porque aquí ya cambiamos de pantalla
+        //alert("¡Pedido enviado con éxito!");
+
+        // Ocultar ticket y mostrar modal de éxito
+        document.getElementById("vista-ticket").classList.add("hidden");
+        document.getElementById("modal-final").classList.remove("hidden");
+        
+        // Mantener la clase modal-open para seguir ocultando el footer
+
+        // Guardar localmente
+        if (typeof guardarEnHistorialLocal === "function") {
+            guardarEnHistorialLocal(datosParaDB);
+        }
+
+    } catch (error) {
+        console.error("Error en el proceso:", error);
+        status.innerText = "❌ Error al procesar.";
+        status.style.color = "red";
+        if (btnEnvio) btnEnvio.disabled = false;
+        alert("Hubo un problema. Intenta de nuevo.");
+    }
+}
+
+
+
+/*
+//finalizar recarga
+async function finalizarRecarga() {
+    const fileInput = document.getElementById('input-comprobante');
+    const status = document.getElementById('status-carga');
+    const btnEnvio = document.querySelector(".btn-enviar-wa"); //creo que se cambio el nombre a btn-whatsapp pero aun asi funciona
+
+    if (!fileInput.files[0]) {
+        mostrarNotificacion("Adjuntar comprobante de pago!");
         //alert("⚠️ Selecciona la foto del comprobante de pago antes de enviar.");
         return;
     }
@@ -377,13 +465,29 @@ async function finalizarRecarga() {
 
         // --- PASO C: Notificación a Telegram ---
         // Usamos los mismos datos que preparamos para la DB
-        await enviarNotificacionTelegram(datosParaDB);
+        //await enviarNotificacionTelegram(datosParaDB); //borrado
+        // REEMPLAZA LA LLAMADA ANTIGUA POR ESTO:
+        try {
+            const dbRef = ref(getDatabase(), 'pedidos/' + datosParaDB.idPedido);
+            await set(dbRef, datosParaDB);
 
-        // --- PASO D: Interfaz Final ---
-        status.innerText = "✅ ¡Recarga solicitada con éxito!";
+            alert("¡Pedido enviado con éxito!");
+            // Aquí puedes redirigir al usuario o limpiar el formulario
+        } catch (error) {
+            console.error("Error al guardar pedido:", error);
+            alert("Hubo un error al procesar tu solicitud.");
+        }
+        //
+
+
+        // --- PASO D: Interfaz Final---
+        //status.innerText = "✅ ¡Recarga solicitada con éxito!"; //creo que ya no se usa xk hay otra
+
+        //Ocultar el ticket y mostrar el modal de éxito (como ya lo hacías)
         document.getElementById("vista-ticket").classList.add("hidden");
         document.getElementById("modal-final").classList.remove("hidden");
 
+        // Guardar en el historial local del cliente para que pueda consultar luego
         if (typeof guardarEnHistorialLocal === "function") {
             guardarEnHistorialLocal(datosParaDB);
         }
@@ -395,6 +499,8 @@ async function finalizarRecarga() {
         alert("Hubo un problema. Intenta de nuevo.");
     }
 }
+*/
+
 /*
 async function finalizarRecarga() {
     const fileInput = document.getElementById('input-comprobante');
@@ -464,6 +570,7 @@ async function finalizarRecarga() {
     }
 }
 */
+
 function mostrarPantallaExito() {
     // Ocultamos todo lo anterior
     document.getElementById("vista-ticket").classList.add("hidden");
@@ -471,7 +578,7 @@ function mostrarPantallaExito() {
 
     // Mostramos el modal de éxito que ya tienes en tu HTML
     const modalFinal = document.getElementById("modal-final");
-    if (modalFinal) modalFinal.classList.remove("hidden");
+    if (modalFinal) modalFinal.classList.remove("hidden"); //hiddem = oculta el elemento de la vista del usuario
 
     // Recargamos el historial para que aparezca la nueva recarga sin refrescar toda la página
     cargarHistorial();
@@ -546,22 +653,27 @@ function nuevaRecarga() {
 
     // Limpiamos todo y volvemos al catálogo principal
     document.getElementById("vista-formulario").classList.remove("hidden");
+    //document.getElementById("vista-catalogo").classList.remove("hidden");
+    
+    // Mantener la clase modal-open ya que volvemos al formulario
 
-    // Reset de inputs y vista previa
+    //Regresa a formulario con los mismos datos de recarga
     if (document.getElementById("input-id")) document.getElementById("input-id").value = "";
     document.getElementById("contenedor-preview").style.display = 'none';
     document.getElementById("input-comprobante").value = "";
     window.linkComprobante = "No subido";
 
+    //el usuario ve la parte superior del sitio.
     window.scrollTo(0, 0);
-
 }
 
 function finalizarTodo() {
     // Simplemente recarga la página para limpiar toda la memoria de la App
     location.reload();
-
+    //el usuario ve la parte superior del sitio.
     window.scrollTo(0, 0);
+    
+    // La clase modal-open se elimina automáticamente al recargar la página
 }
 
 
@@ -569,9 +681,11 @@ function finalizarTodo() {
 function cerrarFormulario() {
     // 1. Ocultar el formulario (ajusta el ID si el tuyo es diferente)
     document.getElementById("vista-formulario").classList.add("hidden");
-
     // 2. Mostrar la galería de juegos inicial
     document.getElementById("vista-catalogo").classList.remove("hidden");
+    
+    // Quitar clase para mostrar footer nuevamente
+    document.body.classList.remove("modal-open");
 
     // 3. Resetear el scroll al inicio
     window.scrollTo(0, 0);
@@ -586,6 +700,8 @@ function cerrarTicket() {
 
     // 2. Regresar al formulario (por si el usuario quiere corregir el ID o Nick)
     document.getElementById("vista-formulario").classList.remove("hidden");
+    
+    // Mantener la clase modal-open ya que volvemos al formulario
 
     // 3. Opcional: Limpiar la vista previa del comprobante si quieres que lo suba de nuevo
     const preview = document.getElementById("contenedor-preview");
@@ -651,44 +767,44 @@ const dots = document.querySelectorAll('.dot');
 let contador = 0; // Para rastrear qué punto activar
 
 function actualizarDots(indice) {
-  dots.forEach(dot => dot.classList.remove('active'));
-  dots[indice].classList.add('active');
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[indice].classList.add('active');
 }
 
 function moverSiguiente() {
-  const slides = document.querySelectorAll('.slide');
-  // Movemos el track hacia la izquierda
-  track.style.transition = "transform 0.5s ease-in-out";
-  track.style.transform = `translateX(-100%)`;
+    const slides = document.querySelectorAll('.slide');
+    // Movemos el track hacia la izquierda
+    track.style.transition = "transform 0.5s ease-in-out";
+    track.style.transform = `translateX(-100%)`;
 
-// Lógica del contador para los dots (0 a 4)
-  contador = (contador + 1) % dots.length;
-  actualizarDots(contador);
+    // Lógica del contador para los dots (0 a 4)
+    contador = (contador + 1) % dots.length;
+    actualizarDots(contador);
 
-  // Al terminar la animación, reordenamos el DOM
-  setTimeout(() => {
-    track.style.transition = "none";
-    track.appendChild(slides[0]); // Mueve el primero al final
-    track.style.transform = `translateX(0)`;
-  }, 500);
+    // Al terminar la animación, reordenamos el DOM
+    setTimeout(() => {
+        track.style.transition = "none";
+        track.appendChild(slides[0]); // Mueve el primero al final
+        track.style.transform = `translateX(0)`;
+    }, 500);
 }
 
 function moverAnterior() {
-  const slides = document.querySelectorAll('.slide');
+    const slides = document.querySelectorAll('.slide');
 
-// Lógica del contador para los dots
-  contador = (contador - 1 + dots.length) % dots.length;
-  actualizarDots(contador);
+    // Lógica del contador para los dots
+    contador = (contador - 1 + dots.length) % dots.length;
+    actualizarDots(contador);
 
-  track.style.transition = "none";
-  // Mueve el último al inicio antes de mostrarlo
-  track.prepend(slides[slides.length - 1]);
-  track.style.transform = `translateX(-100%)`;
-  
-  setTimeout(() => {
-    track.style.transition = "transform 0.5s ease-in-out";
-    track.style.transform = `translateX(0)`;
-  }, 10);
+    track.style.transition = "none";
+    // Mueve el último al inicio antes de mostrarlo
+    track.prepend(slides[slides.length - 1]);
+    track.style.transform = `translateX(-100%)`;
+
+    setTimeout(() => {
+        track.style.transition = "transform 0.5s ease-in-out";
+        track.style.transform = `translateX(0)`;
+    }, 10);
 }
 
 // Botones y Auto-play
@@ -760,7 +876,7 @@ async function cargarHistorial() {
     if (!lista) return;
 
     if (historial.length === 0) {
-        lista.innerHTML = "<p style='text-align:center; opacity:0.5; padding:20px; color:white;'>Aún no tienes pedidos.</p>";
+        lista.innerHTML = "<p style='text-align:center; opacity:0.5; padding:20px; color:white;'>Aún no tienes recargas.</p>";
         return;
     }
 
@@ -905,7 +1021,7 @@ window.addEventListener("beforeunload", () => {
     detenerTiempoRealHistorial();
 });
 
-
+/*
 async function enviarNotificacionTelegram(datos) {
     const URL_FIREBASE = "https://enviarmensajebot-itbyzbuzha-uc.a.run.app"; // La que te dio la terminal
 
@@ -920,12 +1036,12 @@ async function enviarNotificacionTelegram(datos) {
         console.error("Error al contactar al servidor:", e);
     }
 }
+*/
 
-
-/*
+/* original
 async function enviarNotificacionTelegram(datos) {
-    const token = "8731862768:AAFMlGF49gkDmOqUy-nlKbHnFfSk2owVIbI";
-    const chatId = "8730026280";
+    const token = "";
+    const chatId = "";
 
     // Función interna para limpiar textos raros del cliente
     const limpiar = (txt) => String(txt).replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -962,10 +1078,11 @@ async function enviarNotificacionTelegram(datos) {
     }
 }
 */
+
 /* codigo antes del error
 async function enviarNotificacionTelegram(datos) {
-    const token = "8731862768:AAFMlGF49gkDmOqUy-nlKbHnFfSk2owVIbI"; // <--- PEGA AQUÍ TU TOKEN DE BOTFATHER
-    const chatId = "8730026280";    // <--- PEGA AQUÍ TU ID DE USERINFOBOT
+    const token = ""; // <--- PEGA AQUÍ TU TOKEN DE BOTFATHER
+    const chatId = "";    // <--- PEGA AQUÍ TU ID DE USERINFOBOT
 
     // Construimos un mensaje profesional para tu Telegram
     const mensaje = `
@@ -1000,8 +1117,8 @@ async function enviarNotificacionTelegram(datos) {
         console.error("❌ Error notificando a Telegram", e);
     }
 }
-
 */
+
 /*
 function seleccionarPaquete(idx) {
     sel.paquete = sel.juego.paquetes[idx];
@@ -1038,52 +1155,27 @@ let touchEndX = 0;
 
 // Función para procesar el gesto
 function procesarGesto() {
-  const diferencia = touchStartX - touchEndX;
-  const umbral = 50; // Mínimo de píxeles para considerar que fue un deslizamiento
+    const diferencia = touchStartX - touchEndX;
+    const umbral = 50; // Mínimo de píxeles para considerar que fue un deslizamiento
 
-  if (diferencia > umbral) {
-    // Deslizó hacia la izquierda -> Siguiente
-    moverSiguiente();
-  } else if (diferencia < -umbral) {
-    // Deslizó hacia la derecha -> Anterior
-    moverAnterior();
-  }
+    if (diferencia > umbral) {
+        // Deslizó hacia la izquierda -> Siguiente
+        moverSiguiente();
+    } else if (diferencia < -umbral) {
+        // Deslizó hacia la derecha -> Anterior
+        moverAnterior();
+    }
 }
 
 // Eventos táctiles
 const carrusel = document.querySelector('.carousel');
 
 carrusel.addEventListener('touchstart', (e) => {
-  touchStartX = e.changedTouches[0].screenX;
-}, {passive: true});
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
 
 carrusel.addEventListener('touchend', (e) => {
-  touchEndX = e.changedTouches[0].screenX;
-  procesarGesto();
-}, {passive: true});
+    touchEndX = e.changedTouches[0].screenX;
+    procesarGesto();
+}, { passive: true });
 
-/*
-// Ya NO hay API Keys aquí
-function enviarNotificacion(texto) {
-    fetch("URL_DE_TU_FUNCION_FIREBASE", {
-        method: "POST",
-        body: JSON.stringify({ mensaje: texto }),
-        headers: { "Content-Type": "application/json" }
-    });
-}
-    */
-/*
-// Este es tu nuevo script.js SEGURO
-function enviarNotificacion(texto) {
-    const urlDeMiFuncion = "https://enviarmensajebot-itbyzbuzha-uc.a.run.app";
-
-    fetch(urlDeMiFuncion, {
-        method: "POST",
-        body: JSON.stringify({ mensaje: texto }),
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(res => res.json())
-    .then(data => console.log("¡Éxito!", data))
-    .catch(err => console.error("Error:", err));
-}
-    */
